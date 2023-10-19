@@ -4,28 +4,18 @@
 resource "aws_security_group" "eks_controlplane_sg" {
     name = "eks_controlplane_sg"
     vpc_id = aws_vpc.VPC_Main.id
+}
 
-    ingress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        cidr_blocks = [jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress"], jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress2"]]
-    }
-    
-    egress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        security_groups = [aws_security_group.eks_worker_sg.id]
-    }
+resource "aws_security_group_rule" "controlplane_rules" {
+  for_each = local.controlplane_rules
 
-    egress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-  
+  type = each.value.type
+  from_port = each.value.from_port
+  to_port = each.value.to_port
+  protocol = each.value.protocol
+  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  security_group_id = each.value.security_group_id
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
 }
 
 
@@ -33,29 +23,19 @@ resource "aws_security_group" "eks_controlplane_sg" {
 resource "aws_security_group" "eks_worker_sg" {
   name = "eks_worker_sg"
   vpc_id = aws_vpc.VPC_Main.id
+}
 
-  egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "worker_rules" {
+  for_each = local.worker_rules
 
-  ingress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    security_groups = [aws_security_group.eks_controlplane_sg.id]
-  }
-
-  ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    security_groups = [aws_security_group.lb_sg.id]
-  }
-
-
+  type = each.value.type
+  from_port = each.value.from_port
+  to_port = each.value.to_port
+  protocol = each.value.protocol
+  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  security_group_id = each.value.security_group_id
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+  self = lookup(each.value, "self", null)
 }
 
 
@@ -63,39 +43,34 @@ resource "aws_security_group" "eks_worker_sg" {
 resource "aws_security_group" "lb_sg" {
     name = "lb_sg"
     vpc_id = aws_vpc.VPC_Main.id
-
-    ingress {
-        from_port = 443
-        to_port = 443
-        protocol = "tcp"
-        cidr_blocks = [jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress"], jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress2"]]
-    }
-
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        cidr_blocks = [jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress"], jsondecode(data.aws_secretsmanager_secret_version.ip_address.secret_string)["ipaddress2"]]
-    }
 }
 
+resource "aws_security_group_rule" "load_balancer_rules" {
+  for_each = local.load_balancer_rules
+
+  type = each.value.type
+  from_port = each.value.from_port
+  to_port = each.value.to_port
+  protocol = each.value.protocol
+  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  security_group_id = each.value.security_group_id
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+}
+
+//EFS Security Group
 resource "aws_security_group" "efs_sg" {
   name = "efs_sg"
   vpc_id = aws_vpc.VPC_Main.id
+}
 
-  ingress {
-    from_port       = 2049
-    to_port         = 2049
-    protocol        = "tcp"
-    security_groups = [aws_security_group.eks_worker_sg.id]
-  }
+resource "aws_security_group_rule" "efs_rules" {
+  for_each = local.efs_rules
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    security_groups = [aws_security_group.eks_worker_sg.id]
-
-  }
-
+  type = each.value.type
+  from_port = each.value.from_port
+  to_port = each.value.to_port
+  protocol = each.value.protocol
+  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  security_group_id = each.value.security_group_id
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
 }
