@@ -7,6 +7,9 @@ module "eks" {
   cluster_version = "1.28"
   subnet_ids = [aws_subnet.Public1.id, aws_subnet.Public2.id]
 
+  //Control Plane Security Group
+  cluster_additional_security_group_ids = [aws_security_group.eks_controlplane_sg.id]
+
   cluster_endpoint_public_access = true
 
   vpc_id = aws_vpc.VPC_Main.id
@@ -22,6 +25,8 @@ module "eks" {
       desired_size = 2
       min_size = 1
       max_size = 2
+      //Worker Node Security groups
+      vpc_security_group_ids = [aws_security_group.eks_worker_sg.id]
 
       labels = {
         server = "nginx"

@@ -5,7 +5,8 @@ resource "aws_iam_role" "eksClusterRole" {
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
+    Statement = [
+      {
       Effect = "Allow"
       Action = "sts:AssumeRole"
       Principal = {
@@ -25,4 +26,17 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 resource "aws_iam_role_policy_attachment" "eks_service_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = aws_iam_role.eksClusterRole.name
+}
+
+resource "aws_iam_policy" "eks_efs_access" {
+  name = "EKSWorkerNodeEFSAccess"
+  policy = jsonencode({
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite"]
+        Resource = aws_efs_file_system.EFS-Filesystem.arn
+      }
+    ]
+  })
 }
