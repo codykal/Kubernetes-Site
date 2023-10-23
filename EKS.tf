@@ -25,8 +25,17 @@ module "eks" {
       desired_size = 2
       min_size = 1
       max_size = 2
+
+      remote_access = {
+        ec2_ssh_key = data.aws_key_pair.ssh_key.key_name
+      }
+
       //Worker Node Security groups
       vpc_security_group_ids = [aws_security_group.eks_worker_sg.id]
+
+      iam_role_additional_policies = {
+        EFSPolicy = aws_iam_policy.EKSWorkerNodeEFSAccess.arn
+      }
 
       labels = {
         server = "nginx"
