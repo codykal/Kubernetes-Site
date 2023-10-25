@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-efs-volume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs
+  nfs:
+    server: {{ .Values.efs.id }}.efs.us-west-2.amazonaws.com
+    path: {{ .Values.efs.path }}
