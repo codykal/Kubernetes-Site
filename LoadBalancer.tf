@@ -1,4 +1,4 @@
-data "aws_lb" "nginx-lb" {
+data "aws_lb" "nginx_lb" {
     tags = {
         "kubernetes.io/service-name" = "default/loadbalancer"
     }

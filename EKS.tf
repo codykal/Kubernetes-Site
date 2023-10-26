@@ -34,7 +34,7 @@ module "eks" {
       vpc_security_group_ids = [aws_security_group.eks_worker_sg.id]
 
       iam_role_additional_policies = {
-        EFSPolicy = aws_iam_policy.EKSWorkerNodeEFSAccess.arn
+        EFSPolicy = aws_iam_policy.eks_efs_access.arn
       }
 
       labels = {

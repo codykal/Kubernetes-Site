@@ -5,6 +5,7 @@ resource "helm_release" "nginx" {
 
   set {
     name = "efs.id"
-    value = var.efs_id
+    value = aws_efs_file_system.EFS-Filesystem.id
   }
+  depends_on = [ module.eks ]
 }

@@ -8,8 +8,8 @@ resource "aws_route53_record" "docs_subdomain" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.nginx_lb.dns_name
-    zone_id                = aws_lb.nginx_lb.zone_id
+    name                   = data.aws_lb.nginx_lb.dns_name
+    zone_id                = data.aws_lb.nginx_lb.zone_id
     evaluate_target_health = true
   }
 }
