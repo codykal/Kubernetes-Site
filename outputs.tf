@@ -1,15 +1,9 @@
-resource "local_file" "outputs" {
-  content = jsonencode({
-    cluster_name = module.eks.cluster_id,
-    cluster_endpoint = module.eks.cluster_endpoint,
-    kubeconfig = module.eks.kubeconfig
+//aws eks update-kubeconfig --name "k-site"
 
-  })
-  filename = "${path.module}/outputs.json"
+
+output "oidc_provider_url" {
+  description = "OIDC Provider URL for Cluster"
+  value = module.eks.cluster_oidc_issuer_url
 }
 
-output "kubeconfig" {
-  description = "kubeconfig for EKS cluster"
-  value = module.eks.kubeconfig
-  sensitive = true
-}
+data "aws_caller_identity" "current_account" {}
