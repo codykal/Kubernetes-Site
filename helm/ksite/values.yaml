@@ -18,3 +18,16 @@ service:
 efs:
   id: ""
   path: "/"
+
+account_id:
+  id: ""
+
+certificate:
+  arn: ""
+
+aws-load-balancer-controller:
+  clusterName: k-site
+  serviceAccount:
+    create: false
+    name: aws-load-balancer-controller
+
