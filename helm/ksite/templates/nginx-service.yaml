@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: ksite-nginx-deployment
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80

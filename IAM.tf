@@ -42,6 +42,8 @@ resource "aws_iam_policy" "eks_efs_access" {
   })
 }
 
+
+//Load Balancer Controller Policy
 resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
   name = "AWSLoadBalancerControllerIAMPolicy"
   description = "Policy that allows Load Balancers to be created by EKS Cluster"
@@ -76,3 +78,24 @@ resource "aws_iam_role_policy_attachment" "AWSLoadBalancerPolicyAttachment" {
   role = aws_iam_role.AmazonEKSLoadBalancerControllerRole.name
   policy_arn = aws_iam_policy.AWSLoadBalancerControllerIAMPolicy.arn
 }
+
+//Public ECR Repository Access for Worker Nodes
+resource "aws_iam_policy" "ECRPublicRepoAccess" {
+  name = "AmazonEKSECRPublicAccessPolicy"
+  policy = jsonencode({
+
+  Version = "2012-10-17",
+  Statement = [
+    {
+      Effect = "Allow",
+      Action = [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability"
+      ],
+      Resource = "*"
+    }
+  ]
+})
+}
+

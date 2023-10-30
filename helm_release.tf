@@ -11,6 +11,14 @@ resource "helm_release" "nginx" {
     name = "account_id.id"
     value = data.aws_caller_identity.current_account.account_id
   }
+  set {
+    name = "certificate.arn"
+    value = data.aws_acm_certificate.Wildcard-Cert.arn
+  }
+  set {
+    name = "alb-security-groups"
+    value = aws_security_group.lb_sg.name
+  }
 
   depends_on = [ module.eks ]
 }

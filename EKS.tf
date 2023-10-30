@@ -35,6 +35,7 @@ module "eks" {
 
       iam_role_additional_policies = {
         EFSPolicy = aws_iam_policy.eks_efs_access.arn
+        ECRPolicy = aws_iam_policy.ECRPublicRepoAccess.arn
       }
 
       labels = {

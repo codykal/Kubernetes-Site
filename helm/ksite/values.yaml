@@ -31,3 +31,6 @@ aws-load-balancer-controller:
     create: false
     name: aws-load-balancer-controller
 
+alb-security-groups:
+  sg1: ""
+

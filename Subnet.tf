@@ -4,6 +4,10 @@ resource "aws_subnet" "Public1" {
   map_public_ip_on_launch = true
   availability_zone = "us-west-2a"
   enable_resource_name_dns_a_record_on_launch = true
+
+  tags = {
+    "kubernetes.io/role/elb" = 1
+  }
 }
 
 resource "aws_subnet" "Public2" {
@@ -12,6 +16,10 @@ resource "aws_subnet" "Public2" {
   map_public_ip_on_launch = true
   availability_zone = "us-west-2b"
   enable_resource_name_dns_a_record_on_launch = true
+
+  tags = {
+    "kubernetes.io/role/elb" = 1
+  }
 }
 
 resource "aws_subnet" "Private1" {
