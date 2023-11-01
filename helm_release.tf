@@ -8,10 +8,6 @@ resource "helm_release" "nginx" {
     value = aws_efs_file_system.EFS-Filesystem.id
   }
   set {
-    name = "account_id.id"
-    value = data.aws_caller_identity.current_account.account_id
-  }
-  set {
     name = "certificate.arn"
     value = data.aws_acm_certificate.Wildcard-Cert.arn
   }

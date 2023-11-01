@@ -142,3 +142,7 @@ locals {
   }
   
 }
+
+locals {
+  oidc_id = module.eks.oidc_provider.id
+}

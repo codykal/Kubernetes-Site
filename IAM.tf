@@ -60,13 +60,13 @@ resource "aws_iam_role" "AmazonEKSLoadBalancerControllerRole" {
         {
             Effect = "Allow",
             Principal = {
-                Federated = "arn:aws:iam::${data.aws_caller_identity.current_account.account_id}:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/${module.eks.cluster_id}"
+                Federated = "arn:aws:iam::${data.aws_caller_identity.current_account.account_id}:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/${local.oidc_id}"
             },
             Action = "sts:AssumeRoleWithWebIdentity",
             Condition = {
                 StringEquals = {
-                    "oidc.eks.us-west-2.amazonaws.com/id/${module.eks.cluster_id}:aud" = "sts.amazonaws.com",
-                    "oidc.eks.us-west-2.amazonaws.com/id/${module.eks.cluster_id}:sub" = "system:serviceaccount:kube-system:aws-load-balancer-controller"
+                    "oidc.eks.us-west-2.amazonaws.com/id/${local.oidc_id}:aud" = "sts.amazonaws.com",
+                    "oidc.eks.us-west-2.amazonaws.com/id/${local.oidc_id}:sub" = "system:serviceaccount:kube-system:aws-load-balancer-controller"
                 }
             }
         }

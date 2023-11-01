@@ -7,3 +7,9 @@ output "oidc_provider_url" {
 }
 
 data "aws_caller_identity" "current_account" {}
+
+output "oidc_id" {
+  description = "OIDC Provider ID"
+  value = module.eks.aws_iam_openid_connect_provider.oidc_provider.id
+  
+}
