@@ -1,17 +1,22 @@
-# Welcome to MkDocs
+# Resources
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+To view my full site, visit [codykall.com](https://codykall.com).
 
-## Commands
+## AWS Resources used in this project
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+* AWS Application Load Balancer 
+* Elastic File System 
+* Elastic Kubernetes Service
+* Route53
+* Key Management Service
+* Secrets Manager
+* Identity and Acess Management
+* EC2
 
-## Project layout
+## Other Resources
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+* [Kubernetes](https://kubernetes.io/docs/home/)
+* [Terraform, including EKS Module](https://github.com/terraform-aws-modules/terraform-aws-eks)
+* [Helm](https://helm.sh/docs/)
+* [Kubernetes - AWS Application Load Balancer Plugin](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+* [Mkdocs](https://www.mkdocs.org/getting-started/)
