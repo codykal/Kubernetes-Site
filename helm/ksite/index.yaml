@@ -1,9 +1,32 @@
 apiVersion: v1
 entries:
+  aws-efs-csi-driver:
+  - apiVersion: v2
+    appVersion: 1.7.0
+    created: "2023-11-03T14:45:10.596518942-07:00"
+    description: A Helm chart for AWS EFS CSI Driver
+    digest: 231bd131cf172004ee02f1ccf05b2a9b935dd231bd5c31408bf3c2a35f6951a4
+    home: https://github.com/kubernetes-sigs/aws-efs-csi-driver
+    keywords:
+    - aws
+    - efs
+    - csi
+    kubeVersion: '>=1.17.0-0'
+    maintainers:
+    - name: leakingtapan
+      url: https://github.com/leakingtapan
+    - name: krmichel
+      url: https://github.com/krmichel
+    name: aws-efs-csi-driver
+    sources:
+    - https://github.com/kubernetes-sigs/aws-efs-csi-driver
+    urls:
+    - charts/aws-efs-csi-driver-2.5.0.tgz
+    version: 2.5.0
   aws-load-balancer-controller:
   - apiVersion: v2
     appVersion: v2.6.2
-    created: "2023-11-03T14:04:16.385146925-07:00"
+    created: "2023-11-03T14:45:10.597326037-07:00"
     description: AWS Load Balancer Controller Helm chart for Kubernetes
     digest: b32011d3c58d91e8f8755079cfcc2c77bee569a693da14ffb6dfb993451328c6
     home: https://github.com/aws/eks-charts
@@ -27,4 +50,4 @@ entries:
     urls:
     - charts/aws-load-balancer-controller-1.6.2.tgz
     version: 1.6.2
-generated: "2023-11-03T14:04:16.384222638-07:00"
+generated: "2023-11-03T14:45:10.59595136-07:00"

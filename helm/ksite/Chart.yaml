@@ -27,9 +27,8 @@ dependencies:
   - name: aws-load-balancer-controller
     repository: "https://aws.github.io/eks-charts"
     version: "*"
-
-dependencies:
+    
   - name: aws-efs-csi-driver
-    repository: "https://github.com/kubernetes-sigs/aws-efs-csi-driver"
+    repository: "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
     version: "*"
     condition: aws-efs-csi-driver.enabled
