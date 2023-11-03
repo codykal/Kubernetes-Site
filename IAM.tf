@@ -48,7 +48,7 @@ resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
   name = "AWSLoadBalancerControllerIAMPolicy"
   description = "Policy that allows Load Balancers to be created by EKS Cluster"
 
-  policy = file("${path.module}/iam_policy.json")
+  policy = file("${path.module}/iam_policies/iam_policy.json")
 }
 
 resource "aws_iam_role" "AmazonEKSLoadBalancerControllerRole" {
@@ -98,4 +98,35 @@ resource "aws_iam_policy" "ECRPublicRepoAccess" {
   ]
 })
 }
+
+//EFS CSI Driver Policy
+resource "aws_iam_role" "AmazonEKS_EFS_CSI_DriverRole" {
+  name = "AmazonEKS_EFS_CSI_DriverRole"
+  assume_role_policy = jsonencode({
+      Version = "2012-10-17",
+      Statement = [
+    {
+      Effect = "Allow",
+      Principal = {
+        Federated = "arn:aws:iam::${data.aws_caller_identity.current_account.account_id}:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/${local.oidc_id}"
+      },
+      Action = "sts:AssumeRoleWithWebIdentity",
+      Condition = {
+        StringLike = {
+          "oidc.eks.region-code.amazonaws.com/id/${local.oidc_id}:sub" = "system:serviceaccount:kube-system:efs-csi-*",
+          "oidc.eks.region-code.amazonaws.com/id/${local.oidc_id}:aud" = "sts.amazonaws.com"
+        }
+      }
+    }
+  ]
+  }
+
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "EKS_EFS_DriverPolicy_Attachment" {
+  role = aws_iam_role.AmazonEKS_EFS_CSI_DriverRole.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+}
+
 

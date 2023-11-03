@@ -84,6 +84,13 @@ locals {
         source_security_group_id = aws_security_group.lb_sg.id
         security_group_id = aws_security_group.eks_worker_sg.id
     }
+    "internet_egress" = {
+      type = "egress"
+      from_port = 0
+      to_port = 0
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   efs_rules = {

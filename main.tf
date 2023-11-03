@@ -25,3 +25,9 @@ terraform {
 provider "aws" {
   region = "us-west-2"
 }
+
+provider "helm" {
+  kubernetes {
+    config_path = pathexpand(var.kube_config)
+  }
+}

@@ -1,4 +1,4 @@
-//aws eks update-kubeconfig --name "k-site"
+//aws eks update-kubeconfig --region us-west-2 --name "k-site"
 
 
 output "oidc_provider_url" {
@@ -10,6 +10,6 @@ data "aws_caller_identity" "current_account" {}
 
 output "oidc_id" {
   description = "OIDC Provider ID"
-  value = module.eks.aws_iam_openid_connect_provider.oidc_provider.id
+  value = module.eks.oidc_provider.id
   
 }
