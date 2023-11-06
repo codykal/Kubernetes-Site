@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 name: k-site
 description: A chart that serves static files hosted on EFS via nginx.
 
@@ -22,6 +22,8 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
+
+icon: https://drive.google.com/file/d/1HBskJ0vGOGNlg59s_eoKxSWOLZ4JBmus/view
 
 dependencies:
   - name: aws-load-balancer-controller
