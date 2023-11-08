@@ -9,6 +9,8 @@ module "eks" {
   //Control Plane Security Group
   cluster_additional_security_group_ids = [aws_security_group.eks_controlplane_sg.id]
 
+  cluster_enabled_log_types = ["api", "audit", "controllerManager"]
+
   cluster_endpoint_public_access = true
 
   vpc_id = aws_vpc.VPC_Main.id
@@ -18,6 +20,7 @@ module "eks" {
     instance_types = ["t3.small"]
     iam_role_attach_cni_policy = true
   }
+
 
   eks_managed_node_groups = {
     nginx = {
@@ -31,6 +34,9 @@ module "eks" {
 
       //Worker Node Security groups
       vpc_security_group_ids = [aws_security_group.eks_worker_sg.id]
+
+      create_iam_role = true
+      iam_role_name = "eks-worker-role"
 
       iam_role_additional_policies = {
         EFSPolicy = aws_iam_policy.eks_efs_access.arn

@@ -26,6 +26,13 @@ aws-load-balancer-controller:
     create: false
     name: aws-load-balancer-controller
 
-albsecuritygroups:
+aws-efs-csi-driver:
+  enabled: true
+  controller:
+    serviceAccount:
+      create: false
+      name: efs-csi-controller-sa
+
+alb-security-groups:
   sg1: ""
 

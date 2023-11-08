@@ -33,7 +33,7 @@ resource "aws_security_group_rule" "worker_rules" {
   to_port = each.value.to_port
   protocol = each.value.protocol
   cidr_blocks = lookup(each.value, "cidr_blocks", null)
-  security_group_id = each.value.security_group_id
+  security_group_id = lookup(each.value, "security_group_id", null)
   source_security_group_id = lookup(each.value, "source_security_group_id", null)
   self = lookup(each.value, "self", null)
 }
