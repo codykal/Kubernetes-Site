@@ -1,17 +1,19 @@
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
+  version = "~> 19.0"
 
 
-  cluster_name = "k-site"
-  cluster_version = "1.28"
-  subnet_ids = [aws_subnet.Public1.id, aws_subnet.Public2.id]
+  cluster_name = var.cluster_name
+  cluster_version = var.cluster_version
+  subnet_ids = var.subnet_ids
 
   //Control Plane Security Group
   cluster_additional_security_group_ids = [aws_security_group.eks_controlplane_sg.id]
 
-  cluster_enabled_log_types = ["api", "audit", "controllerManager"]
+  cluster_enabled_log_types = ["api", "audit", "authenticator"]
 
   cluster_endpoint_public_access = true
+  cluster_endpoint_public_access_cidrs = local.ip_addresses
 
   vpc_id = aws_vpc.VPC_Main.id
   manage_aws_auth_configmap = true
