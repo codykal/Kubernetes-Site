@@ -1,5 +1,5 @@
 resource "helm_release" "nginx" {
-  name = "ksite"
+  name = "k-site"
   chart = "./helm/ksite"
   namespace = "default"
 
