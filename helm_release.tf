@@ -12,7 +12,7 @@ resource "helm_release" "nginx" {
     value = data.aws_acm_certificate.Wildcard-Cert.arn
   }
   set {
-    name = "alb-security-groups"
+    name = "albsecuritygroups"
     value = aws_security_group.lb_sg.name
   }
 

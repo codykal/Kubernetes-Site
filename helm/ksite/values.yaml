@@ -4,6 +4,9 @@
 
 replicaCount: 2
 
+clustername:
+  name: "k-site"
+
 image:
   repository: nginx
   pullPolicy: IfNotPresent
@@ -33,6 +36,6 @@ aws-efs-csi-driver:
       create: false
       name: efs-csi-controller-sa
 
-alb-security-groups:
+albsecuritygroups:
   sg1: ""
 
