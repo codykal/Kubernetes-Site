@@ -1,0 +1,31 @@
+name: Terraform Tests
+
+on: [push]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicoprt/setup-terraform@v1
+
+    - name: setup AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-keyh: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
+      
+    
+    - name: Terraform Initilialize
+      run: terraform init
+
+    - name: Terraform Validate
+      run: Terraform Validate
+
+    - name: Terraform Plan
+      run: Terraform Plan
