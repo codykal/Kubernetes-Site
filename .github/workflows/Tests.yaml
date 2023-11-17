@@ -36,7 +36,7 @@ jobs:
     
     - name: Helm Lint
       run: helm lint .
-      working-directory: ./helm/ksite
+      working-directory: ./helm/k-site
 
 
   
