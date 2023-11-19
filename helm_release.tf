@@ -1,7 +1,8 @@
 resource "helm_release" "nginx" {
-  name      = "k-site"
-  chart     = "./helm/ksite"
+  name      = var.cluster_name
+  chart     = var.chart_location
   namespace = "default"
+  depends_on = [module.eks]
 
   set {
     name  = "efs.id"
@@ -16,5 +17,4 @@ resource "helm_release" "nginx" {
     value = aws_security_group.lb_sg.name
   }
 
-  depends_on = [module.eks]
 }

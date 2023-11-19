@@ -29,3 +29,9 @@ variable "max_size" {
   default = 2
 }
 
+//Chart Location
+variable "chart_location" {
+  type = string
+  default = "./helm/k-site"
+}
+
