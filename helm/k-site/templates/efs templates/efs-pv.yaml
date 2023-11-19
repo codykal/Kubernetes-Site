@@ -6,10 +6,10 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteMany
+    - Read
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: {{ .Values.efs.path }}
+    volumeHandle: "{{ .Values.efs.id }}"
