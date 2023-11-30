@@ -24,6 +24,15 @@ resource "aws_iam_policy" "Lambda_S3_EFS_Access_Policy" {
           "elasticfilesystem:ClientRootAccess"
         ],
         Resource = aws_efs_file_system.EFS-Filesystem.arn
+      },
+      {
+        Action = [
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface"
+        ],
+        Effect   = "Allow",
+        Resource = "*"
       }
     ]
   })
@@ -48,4 +57,5 @@ resource "aws_iam_role" "Lambda_Role" {
 resource "aws_iam_policy_attachment" "EFS_S3_Policy_Attachment" {
   name       = "EFS_S3_Policy_Attachment"
   policy_arn = aws_iam_policy.Lambda_S3_EFS_Access_Policy.arn
+  roles = [aws_iam_role.Lambda_Role.id]
 }

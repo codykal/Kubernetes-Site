@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "site_files" {
-  bucket = "codykall_site_files"
+  bucket = "codykall-site-files"
 }
 
 resource "aws_s3_bucket_ownership_controls" "site_files_controls" {
