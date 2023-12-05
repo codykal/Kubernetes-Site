@@ -3,6 +3,13 @@ resource "aws_security_group" "lambda_sg" {
   description = "Security group for Lambda Function"
   vpc_id = aws_vpc.VPC_Main.id
 
+  ingress {
+    from_port = 2049
+    to_port = 2049
+    protocol = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
   egress {
     from_port = 2049
     to_port = 2049

@@ -4,8 +4,8 @@ resource "aws_lambda_function" "push_to_efs" {
   handler       = "push_to_efs.lambda_handler"
   //TODO Make python script to push changes from S3 to EFS.
   runtime          = "python3.9"
-  source_code_hash = filebase64sha256("./lambdafunction.zip")
-  filename = "./lambdafunction.zip"
+  source_code_hash = filebase64sha256(data.archive_file.push_to_efs.output_path)
+  filename = data.archive_file.push_to_efs.output_path
   timeout = 90
   vpc_config {
     subnet_ids = [aws_subnet.Public1.id]
@@ -23,3 +23,9 @@ resource "aws_lambda_function" "push_to_efs" {
     local_mount_path = "/mnt/efs"
   }
 }
+
+data "archive_file" "push_to_efs" {
+  type = "zip"
+  source_file = "./push_to_efs.py"
+  output_path = "./lambda_function.zip"
+}   
