@@ -4,6 +4,13 @@ resource "aws_security_group" "lambda_sg" {
   vpc_id = aws_vpc.VPC_Main.id
 
   ingress {
+    from_port = 443
+    to_port = 443    
+    protocol = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  ingress {
     from_port = 2049
     to_port = 2049
     protocol = "tcp"
@@ -11,10 +18,10 @@ resource "aws_security_group" "lambda_sg" {
   }
 
   egress {
-    from_port = 2049
-    to_port = 2049
-    protocol = "tcp"
-    cidr_blocks = ["10.0.1.0/24"]
+    from_port = 0
+    to_port = 0
+    protocol = -1
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 

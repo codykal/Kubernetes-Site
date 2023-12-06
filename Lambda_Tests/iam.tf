@@ -12,8 +12,7 @@ resource "aws_iam_policy" "Lambda_S3_EFS_Access_Policy" {
           "s3:ListBucket"
         ],
         Resource = [
-          aws_s3_bucket.site_files.arn,
-          "${aws_s3_bucket.site_files.arn}/*"
+          "*"
         ]
       },
       {
@@ -23,7 +22,7 @@ resource "aws_iam_policy" "Lambda_S3_EFS_Access_Policy" {
           "elasticfilesystem:ClientWrite",
           "elasticfilesystem:ClientRootAccess"
         ],
-        Resource = aws_efs_file_system.EFS-Filesystem.arn
+        Resource = aws_efs_file_system.EFS_Filesystem.arn
       },
       {
         Action = [
@@ -33,6 +32,15 @@ resource "aws_iam_policy" "Lambda_S3_EFS_Access_Policy" {
         ],
         Effect   = "Allow",
         Resource = "*"
+      },
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Resource = "arn:aws:logs:*:*:*"
+        Effect = "Allow"
       }
     ]
   })
