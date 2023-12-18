@@ -29,3 +29,12 @@ data "archive_file" "push_to_efs" {
   source_file = "./push_to_efs.py"
   output_path = "./lambda_function.zip"
 }   
+
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.push_to_efs.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.site_files.arn
+}
+
