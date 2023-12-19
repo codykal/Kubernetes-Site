@@ -6,7 +6,7 @@ resource "helm_release" "nginx" {
 
   set {
     name  = "efs.id"
-    value = aws_efs_file_system.EFS-Filesystem.id
+    value = aws_efs_file_system.EFS_Filesystem.id
   }
   set {
     name  = "certificate.arn"

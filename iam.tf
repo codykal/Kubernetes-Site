@@ -35,8 +35,8 @@ resource "aws_iam_policy" "eks_efs_access" {
     Statement = [
       {
         Effect   = "Allow"
-        Action   = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite"]
-        Resource = aws_efs_file_system.EFS-Filesystem.arn
+        Action   = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite", "elasticfilesystem:ClientRootAccess"]
+        Resource = aws_efs_file_system.EFS_Filesystem.arn
       }
     ]
   })
