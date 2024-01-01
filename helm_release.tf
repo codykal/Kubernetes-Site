@@ -1,7 +1,7 @@
 resource "helm_release" "nginx" {
-  name      = var.cluster_name
-  chart     = var.chart_location
-  namespace = "default"
+  name       = var.cluster_name
+  chart      = var.chart_location
+  namespace  = "default"
   depends_on = [module.eks]
 
   set {

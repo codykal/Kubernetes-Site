@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "push_to_efs" {
-  function_name = "push_to_efs"
+  function_name = var.lambda_function_name
   role          = aws_iam_role.Lambda_Role.arn
   handler       = "push_to_efs.lambda_handler"
   //TODO Make python script to push changes from S3 to EFS.
@@ -20,14 +20,14 @@ resource "aws_lambda_function" "push_to_efs" {
 
   file_system_config {
     arn              = aws_efs_access_point.EFS_AccessPoint.arn
-    local_mount_path = "/mnt/efs"
+    local_mount_path = var.local_mount_path
   }
 }
 
 data "archive_file" "push_to_efs" {
   type = "zip"
-  source_file = "./push_to_efs.py"
-  output_path = "./lambda_function.zip"
+  source_file = var.source_file_name
+  output_path = var.output_path
 }   
 
 resource "aws_lambda_permission" "allow_bucket" {

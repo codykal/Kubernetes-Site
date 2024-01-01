@@ -16,20 +16,20 @@ resource "aws_efs_mount_target" "EFS-MountTarget" {
 }
 
 resource "aws_efs_access_point" "EFS_AccessPoint" {
-    file_system_id = aws_efs_file_system.EFS_Filesystem.id
+  file_system_id = aws_efs_file_system.EFS_Filesystem.id
 
-    posix_user {
-      gid = 1000
-      uid = 1000
-    }
+  posix_user {
+    gid = 1000
+    uid = 1000
+  }
 
-    root_directory {
-      // May have to change to "/efs" if lambda is having permission issues.
-      path = "/"
-      creation_info {
-        owner_gid = 1000
-        owner_uid = 1000
-        permissions = "0777"
-      }
+  root_directory {
+    // May have to change to "/efs" if lambda is having permission issues.
+    path = "/"
+    creation_info {
+      owner_gid   = 1000
+      owner_uid   = 1000
+      permissions = "0777"
     }
+  }
 }

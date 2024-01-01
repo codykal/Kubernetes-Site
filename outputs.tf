@@ -1,4 +1,5 @@
 //aws eks update-kubeconfig --region us-west-2 --name "k-site"
+//Updates Kubeconfig to use EKS Cluster
 
 
 output "oidc_provider_url" {
