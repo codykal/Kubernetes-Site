@@ -24,6 +24,7 @@ resource "aws_efs_access_point" "EFS_AccessPoint" {
     }
 
     root_directory {
+      // May have to change to "/efs" if lambda is having permission issues.
       path = "/"
       creation_info {
         owner_gid = 1000
